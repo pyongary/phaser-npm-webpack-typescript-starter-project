@@ -1,14 +1,44 @@
 /* AUTO GENERATED FILE. DO NOT MODIFY. YOU WILL LOSE YOUR CHANGES ON BUILD. */
 
 export namespace Images {
+    export class ImagesAsunaByVali233 {
+        static getName(): string { return 'asuna_by_vali233'; }
+
+        static getPNG(): string { return require('assets/images/asuna_by_vali233.png'); }
+    }
     export class ImagesBackgroundTemplate {
         static getName(): string { return 'background_template'; }
 
         static getPNG(): string { return require('assets/images/background_template.png'); }
     }
+    export class ImagesDebugGrid1920x1920 {
+        static getName(): string { return 'debug-grid-1920x1920'; }
+
+        static getPNG(): string { return require('assets/images/debug-grid-1920x1920.png'); }
+    }
 }
 
 export namespace Spritesheets {
+    export class SpritesheetsButtonImage193713 {
+        static getName(): string { return 'button_image.[193,71,3,0,0]'; }
+
+        static getPNG(): string { return require('assets/spritesheets/button_image.[193,71,3,0,0].png'); }
+        static getFrameWidth(): number { return 193; }
+        static getFrameHeight(): number { return 71; }
+        static getFrameMax(): number { return 3; }
+        static getMargin(): number { return 0; }
+        static getSpacing(): number { return 0; }
+    }
+    export class SpritesheetsCards33444048 {
+        static getName(): string { return 'cards.[334,440,48,0,0]'; }
+
+        static getPNG(): string { return require('assets/spritesheets/cards.[334,440,48,0,0].png'); }
+        static getFrameWidth(): number { return 334; }
+        static getFrameHeight(): number { return 440; }
+        static getFrameMax(): number { return 48; }
+        static getMargin(): number { return 0; }
+        static getSpacing(): number { return 0; }
+    }
     export class SpritesheetsMetalslugMummy374518 {
         static getName(): string { return 'metalslug_mummy.[37,45,18,0,0]'; }
 

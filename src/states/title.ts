@@ -9,27 +9,32 @@ export default class Title extends Phaser.State {
     private blurXFilter: Phaser.Filter.BlurX = null;
     private blurYFilter: Phaser.Filter.BlurY = null;
     private sfxAudiosprite: Phaser.AudioSprite = null;
-    private mummySpritesheet: Phaser.Sprite = null;
     private sfxLaserSounds: Assets.Audiosprites.AudiospritesSfx.Sprites[] = null;
 
     public create(): void {
+
         this.backgroundTemplateSprite = this.game.add.sprite(this.game.world.centerX, this.game.world.centerY, Assets.Images.ImagesBackgroundTemplate.getName());
         this.backgroundTemplateSprite.anchor.setTo(0.5);
 
         this.googleFontText = this.game.add.text(this.game.world.centerX, this.game.world.centerY - 100, 'Google Web Fonts', {
-            font: '50px ' + Assets.GoogleWebFonts.Barrio
+            font: '20px ' + Assets.GoogleWebFonts.Barrio
         });
         this.googleFontText.anchor.setTo(0.5);
 
-        this.localFontText = this.game.add.text(this.game.world.centerX, this.game.world.centerY, 'Local Fonts + Shaders .frag (Pixelate here)!', {
-            font: '30px ' + Assets.CustomWebFonts.Fonts2DumbWebfont.getFamily()
+        this.localFontText = this.game.add.text(this.game.world.centerX, this.game.world.centerY, 'Local Fonts + Shaders .frag (Animation)!', {
+            font: '20px ' + Assets.CustomWebFonts.Fonts2DumbWebfont.getFamily()
         });
         this.localFontText.anchor.setTo(0.5);
+        this.localFontText.inputEnabled = true;
+        this.localFontText.events.onInputDown.add(() => {
+            console.log('onClick Text')
+            this.game.state.start('AnimationScene');
+        });
 
         this.pixelateShader = new Phaser.Filter(this.game, null, this.game.cache.getShader(Assets.Shaders.ShadersPixelate.getName()));
         this.localFontText.filters = [this.pixelateShader];
 
-        this.bitmapFontText = this.game.add.bitmapText(this.game.world.centerX, this.game.world.centerY + 100, Assets.BitmapFonts.FontsFontFnt.getName(), 'Bitmap Fonts + Filters .js (Blur here)!', 40);
+        this.bitmapFontText = this.game.add.bitmapText(this.game.world.centerX, this.game.world.centerY + 100, Assets.BitmapFonts.FontsFontFnt.getName(), 'Bitmap Fonts + Filters .js (Blur here)!', 20);
         this.bitmapFontText.anchor.setTo(0.5);
 
         this.blurXFilter = this.game.add.filter(Assets.Scripts.ScriptsBlurX.getName()) as Phaser.Filter.BlurX;
@@ -38,10 +43,6 @@ export default class Title extends Phaser.State {
         this.blurYFilter.blur = 2;
 
         this.bitmapFontText.filters = [this.blurXFilter, this.blurYFilter];
-
-        this.mummySpritesheet = this.game.add.sprite(this.game.world.centerX, this.game.world.centerY + 175, Assets.Spritesheets.SpritesheetsMetalslugMummy374518.getName());
-        this.mummySpritesheet.animations.add('walk');
-        this.mummySpritesheet.animations.play('walk', 30, true);
 
         this.sfxAudiosprite = this.game.add.audioSprite(Assets.Audiosprites.AudiospritesSfx.getName());
 
@@ -63,7 +64,8 @@ export default class Title extends Phaser.State {
 
         this.backgroundTemplateSprite.inputEnabled = true;
         this.backgroundTemplateSprite.events.onInputDown.add(() => {
-            this.sfxAudiosprite.play(Phaser.ArrayUtils.getRandomItem(this.sfxLaserSounds));
+            // this.sfxAudiosprite.play(Phaser.ArrayUtils.getRandomItem(this.sfxLaserSounds));
+            // this.game.state.start('GameMain');
         });
 
         this.game.camera.flash(0x000000, 1000);

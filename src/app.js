@@ -1,91 +1,71 @@
-import 'p2';
-import 'pixi';
-import 'phaser';
-
-import * as WebFontLoader from 'webfontloader';
-
-import Boot from './states/boot';
-import Preloader from './states/preloader';
-import Title from './states/title';
-import * as Utils from './utils/utils';
-import * as Assets from './assets';
-import PlayGame from './game/PlayGame';
-import GameMain from './game/GameMain';
-import Baccarat from './game/Baccarat';
-import AnimationScene from './game/AnimationScene';
-
+"use strict";
+Object.defineProperty(exports, "__esModule", { value: true });
+require("p2");
+require("pixi");
+require("phaser");
+const WebFontLoader = require("webfontloader");
+const boot_1 = require("./states/boot");
+const preloader_1 = require("./states/preloader");
+const title_1 = require("./states/title");
+const Utils = require("./utils/utils");
+const Assets = require("./assets");
+const PlayGame_1 = require("./game/PlayGame");
 class App extends Phaser.Game {
-    constructor(config: Phaser.IGameConfig) {
-        super (config);
-
-        this.state.add('boot', Boot);
-        this.state.add('preloader', Preloader);
-        this.state.add('title', Title);
-        this.state.add('PlayGame', PlayGame);
-        this.state.add('GameMain', GameMain);
-        this.state.add('Baccarat', Baccarat);
-        this.state.add('AnimationScene', AnimationScene);
-
+    constructor(config) {
+        super(config);
+        this.state.add('boot', boot_1.default);
+        this.state.add('preloader', preloader_1.default);
+        this.state.add('title', title_1.default);
+        this.state.add('PlayGame', PlayGame_1.default);
         this.state.start('boot');
     }
 }
-
-function startApp(): void {
-    let gameWidth: number = DEFAULT_GAME_WIDTH;
-    let gameHeight: number = DEFAULT_GAME_HEIGHT;
-
+function startApp() {
+    let gameWidth = DEFAULT_GAME_WIDTH;
+    let gameHeight = DEFAULT_GAME_HEIGHT;
     if (SCALE_MODE === 'USER_SCALE') {
-        let screenMetrics: Utils.ScreenMetrics = Utils.ScreenUtils.calculateScreenMetrics(gameWidth, gameHeight);
-
+        let screenMetrics = Utils.ScreenUtils.calculateScreenMetrics(gameWidth, gameHeight);
         gameWidth = screenMetrics.gameWidth;
         gameHeight = screenMetrics.gameHeight;
     }
-
     // There are a few more options you can set if needed, just take a look at Phaser.IGameConfig
-    let gameConfig: Phaser.IGameConfig = {
+    let gameConfig = {
         width: gameWidth,
         height: gameHeight,
         renderer: Phaser.AUTO,
         parent: '',
         resolution: 1
     };
-
     let app = new App(gameConfig);
 }
-
 window.onload = () => {
-    let webFontLoaderOptions: any = null;
-    let webFontsToLoad: string[] = GOOGLE_WEB_FONTS;
-
+    let webFontLoaderOptions = null;
+    let webFontsToLoad = GOOGLE_WEB_FONTS;
     if (webFontsToLoad.length > 0) {
         webFontLoaderOptions = (webFontLoaderOptions || {});
-
         webFontLoaderOptions.google = {
             families: webFontsToLoad
         };
     }
-
     if (Object.keys(Assets.CustomWebFonts).length > 0) {
         webFontLoaderOptions = (webFontLoaderOptions || {});
-
         webFontLoaderOptions.custom = {
             families: [],
             urls: []
         };
-
         for (let font in Assets.CustomWebFonts) {
             webFontLoaderOptions.custom.families.push(Assets.CustomWebFonts[font].getFamily());
             webFontLoaderOptions.custom.urls.push(Assets.CustomWebFonts[font].getCSS());
         }
     }
-
     if (webFontLoaderOptions === null) {
         // Just start the game, we don't need any additional fonts
         startApp();
-    } else {
+    }
+    else {
         // Load the fonts defined in webFontsToLoad from Google Web Fonts, and/or any Local Fonts then start the game knowing the fonts are available
         webFontLoaderOptions.active = startApp;
-
         WebFontLoader.load(webFontLoaderOptions);
     }
 };
+//# sourceMappingURL=app.js.map
